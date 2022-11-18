@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_self">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+
+    <style>
+        @import 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet';
+
+        :root {
+            --dk-gray-100: #F3F4F6;
+            --dk-gray-200: #E5E7EB;
+            --dk-gray-300: #D1D5DB;
+            --dk-gray-400: #9CA3AF;
+            --dk-gray-500: #6B7280;
+            --dk-gray-600: #4B5563;
+            --dk-gray-700: #374151;
+            --dk-gray-800: #1F2937;
+            --dk-gray-900: #111827;
+            --dk-dark-bg: #313348;
+            --dk-darker-bg: #2a2b3d;
+            --navbar-bg-color: #6f6486;
+            --sidebar-bg-color: #252636;
+            --sidebar-width: 0px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dk-darker-bg);
+            font-size: .925rem;
+        }
+
+        #wrapper {
+            margin-left: var(--sidebar-width);
+            transition: all .3s ease-in-out;
+        }
+
+        #wrapper.fullwidth {
+            margin-left: 0;
+        }
+
+
+
+        /** --------------------------------
+ -- Sidebar
+-------------------------------- */
+        .sidebar {
+            background-color: var(--sidebar-bg-color);
+            width: var(--sidebar-width);
+            transition: all .3s ease-in-out;
+            transform: translateX(0);
+            z-index: 9999999
+        }
+
+        .sidebar .close-aside {
+            position: absolute;
+            top: 7px;
+            right: 7px;
+            cursor: pointer;
+            color: #EEE;
+        }
+
+        .sidebar .sidebar-header {
+            border-bottom: 1px solid #2a2b3c
+        }
+
+        .sidebar .sidebar-header h5 a {
+            color: var(--dk-gray-300)
+        }
+
+        .sidebar .sidebar-header p {
+            color: var(--dk-gray-400);
+            font-size: .825rem;
+        }
+
+        .sidebar .search .form-control~i {
+            color: #2b2f3a;
+            right: 40px;
+            top: 22px;
+        }
+
+        .sidebar>ul>li {
+            padding: .7rem 1.75rem;
+        }
+
+        .sidebar ul>li>a {
+            color: var(--dk-gray-400);
+            text-decoration: none;
+        }
+
+        /* Start numbers */
+        .sidebar ul>li>a>.num {
+            line-height: 0;
+            border-radius: 3px;
+            font-size: 14px;
+            padding: 0px 5px
+        }
+
+        .sidebar ul>li>i {
+            font-size: 18px;
+            margin-right: .7rem;
+            color: var(--dk-gray-500);
+        }
+
+        .sidebar ul>li.has-dropdown>a:after {
+            content: '\eb3a';
+            font-family: unicons-line;
+            font-size: 1rem;
+            line-height: 1.8;
+            float: right;
+            color: var(--dk-gray-500);
+            transition: all .3s ease-in-out;
+        }
+
+        .sidebar ul .opened>a:after {
+            transform: rotate(-90deg);
+        }
+
+        /* Start dropdown menu */
+        .sidebar ul .sidebar-dropdown {
+            padding-top: 10px;
+            padding-left: 30px;
+            display: none;
+        }
+
+        .sidebar ul .sidebar-dropdown.active {
+            display: block;
+        }
+
+        .sidebar ul .sidebar-dropdown>li>a {
+            font-size: .85rem;
+            padding: .5rem 0;
+            display: block;
+        }
+
+        /* End dropdown menu */
+
+        .show-sidebar {
+            transform: translateX(-270px);
+        }
+
+        @media (max-width: 767px) {
+            .sidebar ul>li {
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
+
+            .sidebar .search {
+                padding: 10px 0 10px 30px
+            }
+        }
+
+
+
+
+        /** --------------------------------
+ -- welcome
+-------------------------------- */
+        .welcome {
+            color: var(--dk-gray-300);
+        }
+
+        .welcome .content {
+            background-color: var(--dk-dark-bg);
+        }
+
+        .welcome p {
+            color: var(--dk-gray-400);
+        }
+
+
+
+
+        /** --------------------------------
+ -- Statistics
+-------------------------------- */
+        .statistics {
+            color: var(--dk-gray-200);
+        }
+
+        .statistics .box {
+            background-color: var(--dk-dark-bg);
+        }
+
+        .statistics .box i {
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+        }
+
+        .statistics .box p {
+            color: var(--dk-gray-400);
+        }
+
+
+
+
+        /** --------------------------------
+ -- Charts
+-------------------------------- */
+        .charts .chart-container {
+            background-color: var(--dk-dark-bg);
+        }
+
+        .charts .chart-container h3 {
+            color: var(--dk-gray-400)
+        }
+
+
+
+
+        /** --------------------------------
+ -- users
+-------------------------------- */
+        .admins .box .admin {
+            background-color: var(--dk-dark-bg);
+        }
+
+        .admins .box h3 {
+            color: var(--dk-gray-300);
+        }
+
+        .admins .box p {
+            color: var(--dk-gray-400)
+        }
+
+
+
+
+        /** --------------------------------
+ -- statis
+-------------------------------- */
+        .statis {
+            color: var(--dk-gray-100);
+        }
+
+        .statis .box {
+            position: relative;
+            overflow: hidden;
+            border-radius: 3px;
+        }
+
+        .statis .box h3:after {
+            content: "";
+            height: 2px;
+            width: 70%;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.12);
+            display: block;
+            margin-top: 10px;
+        }
+
+        .statis .box i {
+            position: absolute;
+            height: 70px;
+            width: 70px;
+            font-size: 22px;
+            padding: 15px;
+            top: -25px;
+            left: -25px;
+            background-color: rgba(255, 255, 255, 0.15);
+            line-height: 60px;
+            text-align: right;
+            border-radius: 50%;
+        }
+
+
+
+
+
+        .main-color {
+            color: #ffc107
+        }
+
+        /** --------------------------------
+ -- Please don't do that in real-world projects!
+ -- overwrite Bootstrap variables instead.
+-------------------------------- */
+
+        .navbar {
+            background-color: var(--navbar-bg-color) !important;
+            border: none !important;
+        }
+
+        .navbar .dropdown-menu {
+            right: auto !important;
+            left: 0 !important;
+        }
+
+        .navbar .navbar-nav>li>a {
+            color: #EEE !important;
+            line-height: 55px !important;
+            padding: 0 10px !important;
+        }
+
+        .navbar .navbar-brand {
+            color: #FFF !important
+        }
+
+        .navbar .navbar-nav>li>a:focus,
+        .navbar .navbar-nav>li>a:hover {
+            color: #EEE !important
+        }
+
+        .navbar .navbar-nav>.open>a,
+        .navbar .navbar-nav>.open>a:focus,
+        .navbar .navbar-nav>.open>a:hover {
+            background-color: transparent !important;
+            color: #FFF !important
+        }
+
+        .navbar .navbar-brand {
+            line-height: 55px !important;
+            padding: 0 !important
+        }
+
+        .navbar .navbar-brand:focus,
+        .navbar .navbar-brand:hover {
+            color: #FFF !important
+        }
+
+        .navbar>.container .navbar-brand,
+        .navbar>.container-fluid .navbar-brand {
+            margin: 0 !important
+        }
+
+        @media (max-width: 767px) {
+            .navbar>.container-fluid .navbar-brand {
+                margin-left: 15px !important;
+            }
+
+            .navbar .navbar-nav>li>a {
+                padding-left: 0 !important;
+            }
+
+            .navbar-nav {
+                margin: 0 !important;
+            }
+
+            .navbar .navbar-collapse,
+            .navbar .navbar-form {
+                border: none !important;
+            }
+        }
+
+        .navbar .navbar-nav>li>a {
+            float: left !important;
+        }
+
+        .navbar .navbar-nav>li>a>span:not(.caret) {
+            background-color: #e74c3c !important;
+            border-radius: 50% !important;
+            height: 25px !important;
+            width: 25px !important;
+            padding: 2px !important;
+            font-size: 11px !important;
+            position: relative !important;
+            top: -10px !important;
+            right: 5px !important
+        }
+
+        .dropdown-menu>li>a {
+            padding-top: 5px !important;
+            padding-right: 5px !important;
+        }
+
+        .navbar .navbar-nav>li>a>i {
+            font-size: 18px !important;
+        }
+
+
+
+
+        /* Start media query */
+
+        @media (max-width: 767px) {
+            #wrapper {
+                margin: 0 !important
+            }
+
+            .statistics .box {
+                margin-bottom: 25px !important;
+            }
+
+            .navbar .navbar-nav .open .dropdown-menu>li>a {
+                color: #CCC !important
+            }
+
+            .navbar .navbar-nav .open .dropdown-menu>li>a:hover {
+                color: #FFF !important
+            }
+
+            .navbar .navbar-toggle {
+                border: none !important;
+                color: #EEE !important;
+                font-size: 18px !important;
+            }
+
+            .navbar .navbar-toggle:focus,
+            .navbar .navbar-toggle:hover {
+                background-color: transparent !important
+            }
+        }
+
+
+        ::-webkit-scrollbar {
+            background: transparent;
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #3c3f58;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /*
+        CSS for horizontal progress bar
+        */
+        .progress-bg {
+            margin: 0 auto;
+            width: 70%;
+            height: 78px;
+            border-radius: 10px;
+            text-align: center;
+            -moz-box-shadow: inset 0 0 10px #ccc;
+            -webkit-box-shadow: inset 0 0 10px #ccc;
+            box-shadow: inset 0 0 10px #ccc;
+        }
+
+        .progress-bar {
+            height: 78px;
+            border-radius: 10px;
+            float: left;
+            width: 80%;
+            /* fallback */
+            background-color: #852999;
+
+            
+        }
+
+        .progress-bg h5.goal,
+        .progress-bg h5.raised {
+            font-family: Arial, sans-serif;
+            font-size: 2em;
+            font-weight: 600;
+            line-height: 78px;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            display: inline;
+        }
+
+
+        .progress-bg h5.raised {
+            color: #fff;
+            margin: 10px 25px 0 50px;
+            padding: 0 25px 0 0;
+        }
+
+        .progress-bg h5.goal {
+            color: #b2b2b2;
+            text-align: center;
+        }
+
+        body .progress-bg h5.raised {
+            -webkit-animation: fadein 4s;
+            /* Safari and Chrome */
+            -moz-animation: fadein 4s;
+            /* Firefox */
+            -ms-animation: fadein 4s;
+            /* Internet Explorer */
+            -o-animation: fadein 4s;
+            /* Opera */
+            animation: fadein 4s;
+        }
+
+        @keyframes fadein {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Firefox */
+        @-moz-keyframes fadein {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Safari and Chrome */
+        @-webkit-keyframes fadein {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        ​ ​ .progress-bg h5.goal {
+            float: right;
+            display: inline;
+            padding: 0 25px 0 0;
+            text-align: center;
+        }
+
+        body .progress-bg div {
+            -webkit-animation: progress-bar 2s ease forwards;
+            -moz-animation: progress-bar 2s ease forwards;
+            -o-animation: progress-bar 2s ease forwards;
+            animation: progress-bar 2s ease forwards;
+        }
+
+        @-webkit-keyframes progress-bar {
+            from {
+                width: 0%;
+            }
+
+            to {
+                width: 50%;
+            }
+        }
+
+        @-moz-keyframes progress-bar {
+            from {
+                width: 0%;
+            }
+
+            to {
+                width: 50%;
+            }
+        }
+
+        @-o-keyframes progress-bar {
+            from {
+                width: 0%;
+            }
+
+            to {
+                width: 50%;
+            }
+        }
+
+        @keyframes progress-bar {
+            from {
+                width: 0%;
+            }
+
+            to {
+                width: 50%;
+            }
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
+        integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+    </script>
+
+</head>
+
+<body>
+    <section id="wrapper">
+        <nav class="navbar navbar-expand-md">
+            <div class="container-fluid mx-2">
+                <form id="search-form" onsubmit="handleFormSubmit(this)">
+                    <div class="row">
+                    <div class="search position-relative text-center px-4 py-3 mt-2 offset-md-3">
+                        <input type="text" id="userid" name="userid" class="form-control w-100 border-2 bg-light"
+                            placeholder="Search here">
+                        <i class="fa fa-search position-absolute d-block fs-6"></i>
+                    </div>
+                    <button type="submit" class="btn btn-primary px-4 py-2 offset-md-3">Show My Performance</button>
+                    </div>
+                </form>
+                <div class="collapse navbar-collapse" id="toggle-navbar">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="gottowp()"><i class="uil-whatsapp"></i><span>17</span></a>
+          </li>
+        </ul>
+      </div>
+            </div>
+        </nav>
+
+        <div class="p-4">
+            <div class="welcome">
+                <div class="content text-center rounded-3 p-3">
+                    <h1 class="fs-3" id="username">Creators' Paathshala</h1>
+                    <p class="mb-0" id="category"></p>
+                </div>
+            </div>
+
+            <section class="statis mt-4 text-center">
+                <div class="row">
+                    <div class="col-md-6 col-lg-2 mb-4 mb-lg-0 offset-md-1 ">
+                        <div class="box bg-primary p-3">
+                            <h3 id="postscore">5,154</h3>
+                            <p class="lead">Post Score</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 mb-4 mb-md-0">
+                        <div class="box bg-success p-3">
+                          <h3 id="relevancy">245</h3>
+                            <p class="lead">Relevancy</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 mb-4 mb-md-0">
+                        <div class="box bg-warning p-3">
+                           <h3 id="qualityscore">5,154</h3>
+                            <p class="lead">Quality</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 mb-4 mb-md-0">
+                        <div class="box bg-info p-3">
+                            <h3 id="events">5,154</h3>
+                            <p class="lead">Events</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 mb-4 mb-lg-0">
+                        <div class="box bg-danger p-3">
+                            <h3 id="negativescore">5,154</h3>
+                            <p class="lead">Negative Score</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="progress-bg mt-4">
+                    <div class="progress-bar">
+                        <h5 class="raised" id="totalscore">0&nbsp;claimed </h5>
+                    </div>
+                    <h5 class="goal">Goal: 100</h5>
+                </div>
+            </section>
+
+            <section class="statistics mt-4">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="box d-flex rounded-2 align-items-center mb-4 mb-lg-0 p-3">
+                            <div class="ms-3">
+                                <div class="d-flex align-items-center">
+                                    <h3 class="mb-0"><br></h3> <span class="d-block ms-2"></span>
+                                    <h3 class="mb-0">Suggestions for You<br></h3> <span class="d-block ms-2"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="box d-flex rounded-2 align-items-center mb-4 mb-lg-0 p-3">
+                            <div class="ms-3">
+                                <div class="d-flex align-items-center">
+                                    <h3 class="mb-0" id="suggestionsH3">Kudos! you're alreay doing well. Keep it up.</h3><span class="d-block ms-2" id="suggestion"></span>
+                                </div>
+                                <!--<p class="fs-normal mb-0">Lorem ipsum dolor sit amet</p>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="col-lg-4">
+                        <div class="box d-flex rounded-2 align-items-center p-3">
+                            <div class="ms-3">
+                                <div class="d-flex align-items-center">
+                                    <h3 class="mb-0">5,245</h3> <span class="d-block ms-2">Users</span>
+                                </div>
+                                <p class="fs-normal mb-0">Lorem ipsum dolor sit amet</p>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+            </section>
+
+            <section class="admins mt-4">
+                <div class="row">
+                  <h3 class="text-center" style="color: #FFF">Recommended Tags</h3>
+                    <div class="col-md-6">
+                        <div class="box">
+                            <div id="divTag1" class="admin d-flex align-items-center rounded-2 p-3 mb-4">
+                                <div class="ms-3">
+                                    <h3 class="fs-5 mb-1" id="tag1"></h3>
+                                </div>
+                            </div>
+                            <div id="divTag2" class="admin d-flex align-items-center rounded-2 p-3 mb-4">
+                                <div class="ms-3">
+                                    <h3 class="fs-5 mb-1" id="tag2"></h3>
+                                </div>
+                            </div>
+                            <!-- <div id="divTag3" class="admin d-flex align-items-center rounded-2 p-3">
+                                <div class="ms-3">
+                                    <h3 class="fs-5 mb-1" id="specialtag1">Joge Lucky</h3>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box">
+                            <!-- <h4>Moderators:</h4> -->
+                            <div id="divTag4" class="admin d-flex align-items-center rounded-2 p-3 mb-4">
+                                <div class="ms-3">
+                                    <h3 class="fs-5 mb-1" id="tag3"></h3>
+                                </div>
+                            </div>
+                            <div id="divTag5" class="admin d-flex align-items-center rounded-2 p-3 mb-4">
+                                <div class="ms-3">
+                                    <h3 class="fs-5 mb-1" id="tag4"></h3>
+                                </div>
+                            </div>
+                            <!-- <div id="divTag6" class="admin d-flex align-items-center rounded-2 p-3">
+                                <div class="ms-3">
+                                    <h3 class="fs-5 mb-1" id="specialtag2">Joge Lucky</h3>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="charts mt-4">
+                <div class="chart-container p-3">
+                    <h3 class="fs-6 mb-3">My Performance Chart</h3>
+                    <div style="height: 300px">
+                        <canvas id="chart3" width="100%"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <script>
+        // Global defaults
+        Chart.defaults.global.animation.duration = 2000; // Animation duration
+        Chart.defaults.global.title.display = false; // Remove title
+        Chart.defaults.global.defaultFontColor = '#71748c'; // Font color
+        Chart.defaults.global.defaultFontSize = 13; // Font size for every label
+
+        // Tooltip global resets
+        Chart.defaults.global.tooltips.backgroundColor = '#111827'
+        Chart.defaults.global.tooltips.borderColor = 'blue'
+
+        // Gridlines global resets
+        Chart.defaults.scale.gridLines.zeroLineColor = '#3b3d56'
+        Chart.defaults.scale.gridLines.color = '#3b3d56'
+        Chart.defaults.scale.gridLines.drawBorder = false
+
+        // Legend global resets
+        Chart.defaults.global.legend.labels.padding = 0;
+        Chart.defaults.global.legend.display = false;
+
+        // Ticks global resets
+        Chart.defaults.scale.ticks.fontSize = 12
+        Chart.defaults.scale.ticks.fontColor = '#71748c'
+        Chart.defaults.scale.ticks.beginAtZero = false
+        Chart.defaults.scale.ticks.padding = 10
+
+        // Elements globals
+        Chart.defaults.global.elements.point.radius = 0
+
+        // Responsivess
+        Chart.defaults.global.responsive = true
+        Chart.defaults.global.maintainAspectRatio = true
+
+        var chart = document.getElementById('chart3');
+        var myChart = new Chart(chart, {
+            type: 'line',
+            data: {
+                labels: ["One", "Two", "Three", "Four", "Five", 'Six', "Seven", "Eight"],
+                datasets: [{
+                        label: "Lost",
+                        lineTension: 0.2,
+                        borderColor: '#d9534f',
+                        borderWidth: 1.5,
+                        showLine: true,
+                        data: [3, 30, 16, 30, 16, 36, 21, 40, 20, 30],
+                        backgroundColor: 'transparent'
+                    }, {
+                        label: "Lost",
+                        lineTension: 0.2,
+                        borderColor: '#5cb85c',
+                        borderWidth: 1.5,
+                        data: [6, 20, 5, 20, 5, 25, 9, 18, 20, 15],
+                        backgroundColor: 'transparent'
+                    },
+                    {
+                        label: "Lost",
+                        lineTension: 0.2,
+                        borderColor: '#f0ad4e',
+                        borderWidth: 1.5,
+                        data: [12, 20, 15, 20, 5, 35, 10, 15, 35, 25],
+                        backgroundColor: 'transparent'
+                    },
+                    {
+                        label: "Lost",
+                        lineTension: 0.2,
+                        borderColor: '#337ab7',
+                        borderWidth: 1.5,
+                        data: [16, 25, 10, 25, 10, 30, 14, 23, 14, 29],
+                        backgroundColor: 'transparent'
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            drawBorder: false
+                        },
+                        ticks: {
+                            stepSize: 12
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            display: false,
+                        },
+                    }],
+                }
+            }
+        })
+    </script>
+
+    <!-- Google AppScript code.gs redirection javascript code starts from below.  -->
+    <script>
+
+        function gottowp(){
+          window.open("https://wa.me/918904948713?text=Hi");
+          return false;
+        }
+
+        function preventFormSubmit() {
+            var forms = document.querySelectorAll('form');
+            for (var i = 0; i < forms.length; i++) {
+                forms[i].addEventListener('submit', function (event) {
+                    event.preventDefault();
+                });
+            }
+        }
+        window.addEventListener("load", preventFormSubmit, true);
+
+        //HANDLE FORM SUBMISSION
+        function handleFormSubmit(formObject) {
+            if (document.getElementById('userid').value == "") {
+                alert("Please enter your CreatorID.");
+            } else {
+                console.log(formObject.userid.value);
+                google.script.run.withSuccessHandler(populateData).processForm(formObject);
+                document.getElementById('search-form').reset();
+            };
+        };
+
+        function populateData(response) {
+            if (response[0] == "success") {
+                document.getElementById('username').innerHTML = response[1];
+                document.getElementById('postscore').innerHTML = response[2];
+                document.getElementById('relevancy').innerHTML = response[3];
+                document.getElementById('qualityscore').innerHTML = response[4];
+                document.getElementById('events').innerHTML = response[5];
+                document.getElementById('negativescore').innerHTML = response[6];
+                document.getElementById('totalscore').innerHTML = response[7];
+                if(response[8] != ""){
+                  document.getElementById('suggestionsH3').innerHTML = "";
+                }
+                document.getElementById('suggestion').innerHTML = response[8];
+                document.getElementById('category').innerHTML = response[9];
+                var tags = [];
+                tags = response[10];
+                document.getElementById('tag1').innerHTML = tags[0];
+                $('#divTag1').click(function(){
+                    window.open(tags[1]);
+                    return false;
+                });
+                document.getElementById('tag2').innerHTML = tags[2];
+                $('#divTag2').click(function(){
+                    window.open(tags[3]);
+                    return false;
+                });
+                document.getElementById('tag3').innerHTML = tags[4];
+                $('#divTag4').click(function(){
+                    window.open(tags[5]);
+                    return false;
+                });
+                document.getElementById('tag4').innerHTML = tags[6];
+                $('#divTag5').click(function(){
+                    window.open(tags[7]);
+                    return false;
+                });
+            } else {
+                document.getElementById('username').innerHTML = response[1];
+                document.getElementById('welcomeline').innerHTML = "";
+            }
+
+        }
+    </script>
+
+</body>
+
+</html>
