@@ -5,7 +5,7 @@ Purpose: MVP of a dashboard for the creators managed with
  - personalized feedback for every creator
  - suggested tags which creator should post in based on tag performance and creator profile
 
-developed with frontend using HTML, CSS, JS and Google AppScript as Low code approach
+Developed with frontend using HTML, CSS, JS and Google AppScript as Low code approach
 Backend computing is done in Google Sheets with all the data sourced from few Looker queries (Google data studio) and updated on set frequencies in the sheet.
 
 Backend Output File: https://docs.google.com/spreadsheets/d/1WSxyWWtg8O62s4WSj44n0qBRmabEXLehFonHO0W0BkU/edit#gid=917400071
